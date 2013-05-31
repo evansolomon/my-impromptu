@@ -13,9 +13,12 @@ module.exports = (Impromptu, section) ->
     foreground: 'white'
 
   section 'pwd',
-    content: system.prettyPwd
+    content: [system.prettyPwd, system.lastExitCode]
     background: 'blue'
     foreground: 'white'
+    format: (pwd, code) ->
+      @background = 'red' unless code is 0
+      pwd
 
   section 'git:in',
     when: git.branch
@@ -58,19 +61,8 @@ module.exports = (Impromptu, section) ->
     when: git.isRepo
     foreground: 'blue'
 
-  section 'exit code',
-    content: system.lastExitCode
-    format: (lastExitCode) ->
-      "exit code #{lastExitCode}"
-    when: system.lastExitCode
-    background: 'red'
-    foreground: 'white'
-
   section 'end',
-    content: ['\n$', system.lastExitCode]
-    format: (string, lastExitCode) ->
-      if lastExitCode then @foreground = 'red'
-      string
+    content: '\n$'
     foreground: 'blue'
     options:
       newlines: true
