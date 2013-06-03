@@ -23,6 +23,13 @@ module.exports = (Impromptu, section) ->
     foreground: 'white'
     format: (pwd, code) ->
       @background = 'red' unless code is 0
+
+      if pwd.length > 30 and pwd.indexOf('/') > -1
+        lastDir = pwd.split('/').pop()
+        return pwd if pwd.length - lastDir.length < 15
+
+        pwd = "#{pwd.slice(0, 15)}.../#{lastDir}"
+
       pwd
 
   section 'git:in',
