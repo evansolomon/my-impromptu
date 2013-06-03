@@ -4,6 +4,11 @@ module.exports = (Impromptu, section) ->
 
   git.fetch()
 
+  section 'bash:remind',
+    content: 'Using Bash'
+    when: /bash/i.test process.env.IMPROMPTU_SHELL
+    foreground: 'yellow'
+
   section 'user',
     content: [system.user, system.shortHost]
     format: (user, host) ->
