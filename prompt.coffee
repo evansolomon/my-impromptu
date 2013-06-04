@@ -39,9 +39,12 @@ module.exports = (Impromptu, section) ->
     foreground: 'white'
 
   section 'git:branch',
-    content: git.branch
+    content: [git.branch, git._status]
     background: 'green'
     foreground: 'black'
+    format: (branch, status) ->
+      @background = 'yellow' if status.toString()
+      branch
 
   section 'git:ahead',
     content: git.ahead
