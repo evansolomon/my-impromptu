@@ -23,14 +23,12 @@ module.exports = (Impromptu, section) ->
     foreground: 'white'
     format: (pwd, code) ->
       @background = 'red' unless code is 0
+      return pwd unless pwd.length > 30 and pwd.indexOf('/') > -1
 
-      if pwd.length > 30 and pwd.indexOf('/') > -1
-        lastDir = pwd.split('/').pop()
-        return pwd if pwd.length - lastDir.length < 15
+      lastDir = pwd.split('/').pop()
+      return pwd if pwd.length - lastDir.length < 15
 
-        pwd = "#{pwd.slice(0, 15)}.../#{lastDir}"
-
-      pwd
+      "#{pwd.slice(0, 15)}.../#{lastDir}"
 
   section 'git:in',
     when: git.branch
