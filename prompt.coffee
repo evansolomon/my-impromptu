@@ -66,6 +66,13 @@ module.exports = (Impromptu, section) ->
     when: git.isRepo
     foreground: 'blue'
 
+  section 'git:stashed',
+    content: git.stashCount
+    format: (count) ->
+      "stashed #{count}"
+    when: git.stashCount
+    foreground: 'magenta'
+
   section 'end',
     content: '\n$'
     foreground: 'blue'
