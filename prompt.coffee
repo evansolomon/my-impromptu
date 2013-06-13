@@ -32,9 +32,12 @@ module.exports = (Impromptu, section) ->
     foreground: 'white'
 
   section 'git:branch',
-    content: git.branch
+    content: [git.branch, git.remoteBranch]
     background: 'green'
     foreground: 'black'
+    format: (branch, remoteBranch) ->
+      @background = 'white' unless remoteBranch
+      branch
 
   section 'git:ahead',
     content: git.ahead
